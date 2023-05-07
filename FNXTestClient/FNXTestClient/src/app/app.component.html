@@ -1,0 +1,44 @@
+
+<p>
+  <mat-toolbar>
+    <span>Git Repos</span>
+  </mat-toolbar>
+</p>
+
+<div class="container">
+
+  <div class="formDiv">
+    <form class="form" (submit)="onSubmit($event)">
+      <mat-form-field class="full-width">
+        <mat-label>Search</mat-label>
+        <input  matTooltip="press enter to submit!" [(ngModel)]="searchValue" name="saerchInp" matInput>
+        <mat-spinner *ngIf="isLoading" matSuffix diameter="16" style="display: inline-flex"></mat-spinner>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div class="mat-card-container" *ngIf="this.respos && this.respos.items.length > 0">
+    <div *ngFor="let item of this.respos.items">
+      <mat-card  class="card">
+        <mat-card-header>
+          <mat-card-title-group>
+            <div style="width:50%;">
+              <mat-card-title>{{item.name}}</mat-card-title>
+            </div>
+            <img mat-card-lg-image src={{item.owner.url}} >
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          <button mat-fab color="accent" (click)="bookMark(item)">
+            <mat-icon>bookmark</mat-icon>
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div *ngIf="!this.respos" class="noData"></div>
+  
+</div>
+
+<div class="overlay" *ngIf="invalidLogin"></div>
